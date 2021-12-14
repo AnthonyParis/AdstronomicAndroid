@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Adstronomic</string>
+    <string name="action_settings">Settings</string>
+    <string name="banner_ad_unit_id">YOUR_BANNER_AD_UNIT_ID</string>
+    <string name="visit_advertiser">Visit advertiser</string>
+
+    <string name="header_image">Header Image</string>
+    <string name="interstitial_image">Interstitial Image</string>
+    <string name="close_button">Close</string>
+
+    <string name="price_format">Price: %s</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hide_app_if_installed">Hide app if Installed?</string>
+    <string name="use_palette">Use Palette</string>
+    <string name="show_header">Show Header</string>
+    <string name="force_refresh">Force Refresh</string>
+    <string name="card_corner_size">50</string>
+    <string name="cta_corner_size">50</string>
+    <string name="card_corner_radius">Card corner radius</string>
+    <string name="set_action_button_corner_radius">Action Button corner radius</string>
+    <string name="load_ad">Load Ad</string>
+    <string name="load_native_ad">Load Native Ad</string>
+    <string name="show_ad">Show Ad</string>
+    <string name="show_interstitial_on_back_press">Back Press</string>
+    <string name="github">Github</string>
+    <string name="loading">Loading..</string>
+    <string name="ad_failed">Ad Loading Failed..  \nReason:</string>
+    <string name="ad_loading">Ad Loading…</string>
+    <string name="press_back">Press Back</string>
+    <string name="small_donation">Small Donation</string>
+    <string name="serif">serif</string>
+    <string name="donation_text"><![CDATA[This Library was build & is maintained by one person. \nDonations are much appreciated & encourage continued support.]]></string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    <string name="local_assets">Load locally stored assets</string>
+
+    <string name="error_url_blank">Supplied Url is Blank/Empty.</string>
+    <string name="error_null_response">The response received was unknown or blank / null.</string>
+    <string name="error_icon_url_null">Icon URL should not be Null or Blank &amp; should start with http://</string>
+    <string name="error_header_image_url_null">Header Image URL should start with http://</string>
+    <string name="error_title_description_null">Title &amp; description should not be Null or Blank.</string>
+    <string name="error_interstitial_image_url_null">Interstitial Image URL should not be Null or Blank &amp; should start with http://</string>
+    <string name="error_raw_resource_icon_null">When using the constructor with `@RawRes` param, Icon must be a local drawable name (@drawable/logo) or start with http://</string>
+    <string name="error_raw_resource_header_image_null">When using the constructor with `@RawRes` param, Header Image must be a local drawable name (@drawable/header) or start with http://</string>
+    <string name="error_raw_resource_interstitial_image_null">When using the constructor with `@RawRes` param, Interstitial Image must be a local drawable name (@drawable/interstitial) or start with http://</string>
+    <string name="error_native_ad_null">NativeAdView is Null. Either pass HouseAdsNativeView or a View object in `setNativeAdView()`</string>
+    <string name="error_cta_is_not_textview_instance">Call to Action View must be either a Button or a TextView</string>
+</resources>

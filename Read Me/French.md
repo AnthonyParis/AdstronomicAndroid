@@ -42,9 +42,9 @@ Votre projet est maintenant crée. Toutefois, il s'agit d'un projet vide, qui n'
 
 Notez que comme j'avais déjà le package "com.adstronomic.sdk" à la création du projet, ces deux packages seront fusionnés dans Android Studio, mais sur votre projet à vous, vous devriez avoir un package sdk en dessous de votre package par défaut. Ouvrez maintenant ce package sdk.
 
-Nous allons maintenant avoir besoin des sources du SDK Adstronomic. Pour cela allez à la racine de ce dépôt, ouvrez le dossier app > src > main > java > com > adstronomic > sdk, et copiez son contenu. Retournez sur votre projet sur Android Studio, et copiez ces fichiers dans le package sdk que nous venons de créé. Nous aurons cependant quelques erreurs, soulignées en rouge, que nous corrigerons dans un instant.
+Nous allons maintenant avoir besoin des sources du SDK Adstronomic. Pour cela allez à la racine de ce dépôt, ouvrez le dossier app > src > main > java > com > adstronomic > sdk, et copiez son contenu. Retournez sur votre projet Android Studio, et copiez ces fichiers dans le package sdk que nous venons de créé. Nous aurons cependant quelques erreurs, soulignées en rouge, que nous corrigerons dans un instant.
 
-Maintenant, nous devons faire la même chose pour les resources. Retournez à la racine de ce dépôt, et ouvrez cette fois ci le dossier app > src > main > res, et copiez son contenu. Sur votre projet sur Android Studio, collez ce contenu dans le dossier app > res. Si certains éléments existaient déjà, vous pouvez les remplacer, ou les fusionner manuellement, en fonction de l'avancée de votre projet.
+Maintenant, nous devons faire la même chose pour les resources. Retournez à la racine de ce dépôt, et ouvrez cette fois ci le dossier app > src > main > res, et copiez son contenu. Sur votre projet Android Studio, collez ce contenu dans le dossier app > res. Si certains éléments existaient déjà, vous pouvez les remplacer, ou les fusionner manuellement, en fonction de l'état de votre projet.
 
 Si vous avez suivi jusque là, vous devriez avoir la hiérarchie suivante sous les yeux :
 
@@ -52,9 +52,9 @@ Si vous avez suivi jusque là, vous devriez avoir la hiérarchie suivante sous l
 
 Encore une fois, sur votre propre projet, vous aurez normalement un package distinct pour le SDK, et le MainActivity devrait être séparé des autres dossiers.
 
-Maintenant, nous allons nous attaquer aux erreurs de compilation présentes dans le SDK. En effet, la version Android du SDK Adstronomic nécessite quelques libraires supplémentaires, que nous allons ajouter de suite.
+Maintenant, nous allons nous attaquer aux erreurs de compilation présentes dans notre projet. En effet, la version Android du SDK Adstronomic nécessite quelques libraires supplémentaires, que nous allons ajouter de suite.
 
-Pour commencer, nous allons récupérer la librairie "JSON Simple", qui est utilisée pour analyser les fichiers JSON. Ouvrez ce dépot, et copiez le dossier app > libs, retournez dans votre projet, et collez ce dossier dans le dossier app.
+Pour commencer, nous allons récupérer la librairie "JSON Simple", qui est utilisée pour analyser les fichiers JSON. Ouvrez ce dépot, copiez le contenu du dossier app > libs, retournez dans votre projet, et collez son contenu au même emplacement.
 
 Ensuite, ajoutons les librairies au projet. Pour cela, retournons sur Android Studio, et ouvrons le fichier "Gradle Scripts" > build.gradle. Nous avons normalement deux fichiers build.gradle, et nous allons modifier le second, celui qui définit les modules utilisés. Nous devons y trouver le bloc dependencies, et y insérer les lignes suivantes :
 
@@ -66,13 +66,13 @@ implementation files('/Users/Pythony/Projects/Kotlin/Adstronomic/app/libs/json-s
 
 Pensez à modifier la dernières lignes pour qu'elle pointe vers le fichier que vous venez de coller, en utilisant un chemin absolu.
 
-Enfin, après avoir modifié ce fichier, un bandeau jaune devrait apparaître en haut de l'écran, vous proposant de synchroniser les modifications en cliquant sur "Sync Now", ce que nous allons faire.
+Enfin, après avoir modifié ce fichier, un bandeau jaune devrait apparaître en haut de l'écran, nous proposant de synchroniser les modifications en cliquant sur "Sync Now", ce que nous allons faire.
 
 <img src="https://raw.githubusercontent.com/AnthonyParis/AdstronomicAndroid/master/Read%20Me/6.png" alt="6" style="zoom:25%;" />
 
-Normalement, cette synchronisation devrait supprimer les erreur restantes.
+Normalement, cette synchronisation devrait supprimer les erreurs restantes.
 
-Nous allons nous assurer que le projet fonctionne correctement en le démarrant. Pour cela, sélectionnez un AVD dans la liste tout en haut, puis cliquez sur le bouton Run à sa droite. Si le SDK Adstronomic est correctement installé, un AVD devrait s'ouvrir, et afficher l'écran suivant :
+Nous allons nous assurer que le projet fonctionne correctement en le démarrant. Pour cela, sélectionnons un AVD dans la liste tout en haut, puis cliquons sur le bouton Run à sa droite. Si le SDK Adstronomic est correctement installé, un AVD devrait s'ouvrir, et afficher l'écran suivant :
 
 <img src="https://raw.githubusercontent.com/AnthonyParis/AdstronomicAndroid/master/Read%20Me/7.png" alt="7" style="zoom:25%;" />
 
@@ -86,7 +86,7 @@ Félicitations ! Vous venez d'installer Adstronomic dans votre projet ! 🥳 La 
 
 Maintenant qu'Adstronomic est intégré à notre projet, nous allons voir comment le paramétrer pour qu'il récupère et envoie les bonnes données.
 
-Pour cela, commençons par ouvrir le fichier MainActivity, contenu dans le package principal du projet. Celui-ci contient le code suivant :
+Pour cela, commençons par ouvrir le fichier MainActivity, contenu dans le package par défaut du projet. Celui-ci contient le code suivant :
 
 ```kotlin
 package com.adstronomic.sdk.android
@@ -101,19 +101,19 @@ class MainActivity : AppCompatActivity() {
 
 Notez que j'enlèverai les imports dans les exemples donnés, par soucis de simplicité.
 
-La première étape est d'initialiser Adstronomic avec un campaignId, via la fonction suivante :
+La première étape est d'initialiser Adstronomic avec un campaignID, via la fonction suivante :
 
 ```kotlin
 Adstronomic.init(this, "01234567-89AB-CDEF-0123-456789ABCDEF")
 ```
 
-🚨 Notez bien que le second paramètre correspond à l'identifiant de votre campagne, tel qu'indiqué sur la plateforme web. L'identifiant indiqué ici corresponds à un compte de démonstration, qui peut vous servir à vérifier le bon fonctionnement d'Adstronomic, mais qui ne doit absolument pas être déployé en production !
+🚨 Notez bien que le second paramètre correspond à l'identifiant de votre campagne, tel qu'indiqué sur la [plateforme web d'Adstronomic](http://app.adstronomic.com). L'identifiant indiqué ici correspond à un compte de démonstration, qui peut vous servir à vérifier le bon fonctionnement d'Adstronomic, mais qui ne doit absolument pas être déployé en production !
 
 Pour le reste, nous allons utiliser une vue comprenant trois boutons, qui lanceront chacun un type de publicité différente. Bien sûr, dans un véritable projet, vous pourrez lancer vos publicités à n'importe quel autre événement, en gardant le même principe.
 
 Je vous invite à utiliser la même vue que moi dans un premier temps, en copiant le fichier app > src > main > res > layout > activity_main.xml de ce dépôt dans votre projet, au même emplacement.
 
-Si vous préférez, vous pouvez utilisez votre propre vue, en y ajoutant trois boutons, et en leur ajoutant les ids bannerAdButton, interstitialAdButton et rewardedAdButton.
+Si vous préférez, vous pouvez utilisez votre propre vue, en y ajoutant trois boutons, et en leur ajoutant les ID bannerAdButton, interstitialAdButton et rewardedAdButton.
 
 Enfin, une dernière étape importante : Adstronomic va avoir besoin d'accéder à Internet pour communiquer avec l'API. Nous devons donc l'y autoriser, en ajoutant la ligne suivante dans le fichier app > src > main > AndroidManifest.xml.
 
@@ -133,7 +133,7 @@ Une BannerAd est tout simplement une publicité sous forme d'image, habituelleme
 
 Dans Adstronomic, ces publicités sont représentées par des images, de type ImageView. Nous allons donc en créer une manuellement, et la récupérer dans notre MainActivity.
 
-Ouvrons tout d'abord le fichier res > layout > activity_main.xml, et ajoutons-y une ImageView, possédant l'id bannerAdImage. Habituellement, une telle publicité est présente en bas de l'écran, sur toute sa largeur, mais vous pouvez changer cela, si besoin.
+Ouvrons tout d'abord le fichier res > layout > activity_main.xml, et ajoutons-y une ImageView, possédant l'ID bannerAdImage. Habituellement, une telle publicité est présente en bas de l'écran, sur toute sa largeur, mais vous pouvez changer cela, si besoin.
 
 Notez qu'une ImageView est déjà présente dans le activity_main.xml de ce dépôt, et que vous n'avez donc pas à en ajouter un si vous avez dupliqué ce fichier.
 
@@ -145,13 +145,13 @@ Nous allons maintenant récupérer cette image dans notre MainActivity. Tout d'a
 private lateinit var bannerAdImage: ImageView
 ```
 
-Ensuite, initialisons cette attribut pour récupérer l'ImageView via son id.
+Ensuite, initialisons cette attribut pour récupérer l'ImageView via son ID.
 
 ```kotlin
 bannerAdImage = findViewById(R.id.bannerAdImage)
 ```
 
-Maintenant que l'image est prête, nous allons également initialiser et récupérer un bouton, qui va servir de déclencheur. Ajoutez-en un si vous n'en avez pas dans votre vue, et ajouter lui l'id bannerAdButton.
+Maintenant que l'image est prête, nous allons également initialiser et récupérer un bouton, qui va servir de déclencheur. Ajoutez-en un si vous n'en avez pas dans votre vue, et ajouter lui l'ID bannerAdButton.
 
 Une fois ce bouton présent, nous allons le déclarer et l'initialiser via un attribut, exactement comme nous l'avons fait avec notre ImageView.
 
@@ -209,7 +209,7 @@ Et en lançant notre AVD, notre Banner Ad devrait apparaître en bas de l'écran
 
 
 
-Si vous avez réussi à afficher une Banner Ad, vous ne devriez pas avoir de difficulté pour l'affichage des Interstitial Ad et des Rewarded Ad, car elles s'utilisent presque de la même manière. Retournons dans le activity_main.xml, et ajoutons-y cette fois deux VideoView, avec les ids interstitialAdVideo et rewardedAdVideo. Comme son nom l'indique, il s'agit de l'équivalent d'une ImageView, pour les vidéos.
+Si vous avez réussi à afficher une Banner Ad, vous ne devriez pas avoir de difficulté pour l'affichage des Interstitial Ad et des Rewarded Ad, car elles s'utilisent presque de la même manière. Retournons dans le activity_main.xml, et ajoutons-y cette fois une VideoView, avec l'ID interstitialAdVideo. Comme son nom l'indique, il s'agit de l'équivalent d'une ImageView, pour les vidéos.
 
 Notez que ce composant prends par défaut toute la place à l'écran. Nous allons donc mettre sa visibility à invisible pour l'instant.
 
@@ -329,7 +329,7 @@ class MainActivity : AppCompatActivity() {
         rewardedAdButton = findViewById(R.id.interstitialAdButton)
 
         rewardedAdButton.setOnClickListener {
-            rewardedAdButton.visibility = View.VISIBLE
+            rewardedAdVideo.visibility = View.VISIBLE
 
             Adstronomic.loadRewardedIntoVideoView(this, rewardedAdVideo)
         }
@@ -347,9 +347,9 @@ En lançant notre AVD, nous devrions voir notre Rewarded Ad apparaître sous nos
 ## <u>7 - Conclusion</u>
 
 
-Si vous lisez ces lignes, vous devez avoir entièrement installé, configuré et intégré le SDK Adstronomic à votre projet.
+Si vous lisez ces lignes, vous avez normalement entièrement installé, configuré et intégré le SDK Adstronomic à votre projet.
 
-Vous l'aurez compris, une fois cette étape terminée, il ne vous restera qu'à créer une campagne [sur notre plateforme web](http://app.adstronomic.com), y ajouter vos publicités, et indiquez votre campaignId au chargement de l'application.
+Vous l'aurez compris, une fois cette étape terminée, il ne vous restera qu'à créer une campagne [sur notre plateforme web](http://app.adstronomic.com), y ajouter vos publicités, et indiquez votre campaignID au chargement de l'application.
 
 Naturellement, Adstronomic est encore jeune, et sera amené à évoluer au fil du temps. Pour cela, il est primordial que vous nous fassiez des retours concernant les fonctionnalités que vous voudriez y trouver, ou tout simplement nous dire ce que vous pensez de nous.
 

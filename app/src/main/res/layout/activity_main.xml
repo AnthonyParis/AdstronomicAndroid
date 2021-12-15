@@ -54,7 +54,6 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="100dp"
             android:visibility="visible"
-            app:srcCompat="@drawable/banner_ad"
             tools:srcCompat="@tools:sample/avatars" />
     </LinearLayout>
 
@@ -76,7 +75,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="invisible" />
 

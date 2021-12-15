@@ -14,7 +14,7 @@ Adstronomic est une plateforme publicitaire vous permettant d'exploiter et de sy
 
 	- Une plateforme web sur laquelle vous pouvez paramètrer vos projets, et les publicités associées.
 	- Une API permettant d'interagir avec les données d'Adstronomic.
-	- Un SDK qui vous permet d'utiliser facilement et rapidement tout le potentiel d'Adstronomic
+	- Un SDK qui vous permet d'utiliser facilement et rapidement tout le potentiel d'Adstronomic.
 
 Chacun de ces outil est intuitif, afin de vous permettre de vous concentrer sur ce qui compte le plus pour vous : La réussite de votre projet. Dans ce guide, nous allons nous concentrer sur le troisième point : L'installation et l'utilisation du SDK, ici dans sa version Android. 📱
 
@@ -104,7 +104,7 @@ Notez que j'enlèverai les imports dans les exemples donnés, par soucis de simp
 La première étape est d'initialiser Adstronomic avec un campaignID, via la fonction suivante :
 
 ```kotlin
-Adstronomic.init(this, "01234567-89AB-CDEF-0123-456789ABCDEF")
+Adstronomic.init(this, "wJMvF7kouz0lsO4m3d5a")
 ```
 
 🚨 Notez bien que le second paramètre correspond à l'identifiant de votre campagne, tel qu'indiqué sur la [plateforme web d'Adstronomic](http://app.adstronomic.com). L'identifiant indiqué ici correspond à un compte de démonstration, qui peut vous servir à vérifier le bon fonctionnement d'Adstronomic, mais qui ne doit absolument pas être déployé en production !
@@ -186,7 +186,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Adstronomic.init(this, "01234567-89AB-CDEF-0123-456789ABCDEF")
+        Adstronomic.init(this, "wJMvF7kouz0lsO4m3d5a")
 
         bannerAdImage = findViewById(R.id.bannerAdImage)
         bannerAdButton = findViewById(R.id.bannerAdButton)
@@ -253,7 +253,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Adstronomic.init(this, "01234567-89AB-CDEF-0123-456789ABCDEF")
+        Adstronomic.init(this, "wJMvF7kouz0lsO4m3d5a")
 
         bannerAdImage = findViewById(R.id.bannerAdImage)
         bannerAdButton = findViewById(R.id.bannerAdButton)
@@ -307,7 +307,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Adstronomic.init(this, "01234567-89AB-CDEF-0123-456789ABCDEF")
+        Adstronomic.init(this, "wJMvF7kouz0lsO4m3d5a")
 
         bannerAdImage = findViewById(R.id.bannerAdImage)
         bannerAdButton = findViewById(R.id.bannerAdButton)
@@ -325,8 +325,8 @@ class MainActivity : AppCompatActivity() {
             Adstronomic.loadInterstitialIntoVideoView(this, interstitialAdVideo)
         }
 
-        rewardedAdVideo = findViewById(R.id.interstitialAdVideo)
-        rewardedAdButton = findViewById(R.id.interstitialAdButton)
+        rewardedAdVideo = findViewById(R.id.rewardedAdVideo)
+        rewardedAdButton = findViewById(R.id.rewardedAdButton)
 
         rewardedAdButton.setOnClickListener {
             rewardedAdVideo.visibility = View.VISIBLE

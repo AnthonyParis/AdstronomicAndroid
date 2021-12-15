@@ -170,7 +170,7 @@ public class Adstronomic {
 
     public static void loadBanner(Context context) {
         if(Adstronomic.campaignId != "") {
-            String url = Adstronomic.API_URL + "AdsService/BannerAd";
+            String url = Adstronomic.API_URL + "getBanner";
 
             url += "?campaignId=" + Adstronomic.campaignId;
 
@@ -203,7 +203,7 @@ public class Adstronomic {
 
     public static void loadBannerIntoImageView(Context context, ImageView myImageView) {
         if(Adstronomic.campaignId != "") {
-            String url = Adstronomic.API_URL + "AdsService/BannerAd";
+            String url = Adstronomic.API_URL + "getBanner";
 
             url += "?campaignId=" + Adstronomic.campaignId;
 
@@ -212,14 +212,14 @@ public class Adstronomic {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                String appId = response.get("appId").toString();
+                                /*String appId = response.get("appId").toString();
                                 String storeURL = response.get("storeURL").toString();
                                 String id = response.get("id").toString();
                                 String fileURL = response.get("fileURL").toString();
 
-                                GenerateJson.generateBannerJson(appId, storeURL, id, fileURL);
+                                GenerateJson.generateBannerJson(appId, storeURL, id, fileURL);*/
 
-                                Picasso.get().load(Adstronomic.parseURL(fileURL)).into(myImageView);
+                                Picasso.get().load(Adstronomic.parseURL(response.get("url").toString())).into(myImageView);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -238,7 +238,7 @@ public class Adstronomic {
 
     public static void loadRewarded(Context context) {
         if(Adstronomic.campaignId != "") {
-            String url = Adstronomic.API_URL + "AdsService/RewardedAd";
+            String url = Adstronomic.API_URL + "getRewarded";
 
             url += "?campaignId=" + Adstronomic.campaignId;
 
@@ -271,28 +271,29 @@ public class Adstronomic {
 
     public static void loadRewardedIntoVideoView(Context context, VideoView myVideoView) {
         if(Adstronomic.campaignId != "") {
-            String url = Adstronomic.API_URL + "AdsService/RewardedAd";
+            String url = Adstronomic.API_URL + "getRewarded";
 
             url += "?campaignId=" + Adstronomic.campaignId;
 
+            System.out.println("Fetch");
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                String appId = response.get("appId").toString();
+                                /*String appId = response.get("appId").toString();
                                 String storeURL = response.get("storeURL").toString();
                                 String id = response.get("id").toString();
                                 String fileURL = response.get("fileURL").toString();
 
-                                GenerateJson.generateRewardedJson(appId, storeURL, id, fileURL);
-
-                                myVideoView.setVideoPath(Adstronomic.parseURL(fileURL));
+                                GenerateJson.generateRewardedJson(appId, storeURL, id, fileURL);*/
+                                myVideoView.setVideoPath(Adstronomic.parseURL(response.get("url").toString()));
                                 myVideoView.setOnPreparedListener(
                                     new MediaPlayer.OnPreparedListener() {
                                         @Override
                                         public void onPrepared(MediaPlayer myMediaPlayer) {
                                             myVideoView.start();
+                                            System.out.println("Start");
                                         }
                                     }
                                 );
@@ -315,7 +316,7 @@ public class Adstronomic {
 
     public static void loadInterstitial(Context context) {
         if(Adstronomic.campaignId != "") {
-            String url = Adstronomic.API_URL + "AdsService/InterstitialAd";
+            String url = Adstronomic.API_URL + "getInterstitial";
 
             url += "?campaignId=" + Adstronomic.campaignId;
 
@@ -348,7 +349,7 @@ public class Adstronomic {
 
     public static void loadInterstitialIntoVideoView(Context context, VideoView myVideoView) {
         if(Adstronomic.campaignId != "") {
-            String url = Adstronomic.API_URL + "AdsService/InterstitialAd";
+            String url = Adstronomic.API_URL + "getInterstitial";
 
             url += "?campaignId=" + Adstronomic.campaignId;
 
@@ -357,14 +358,14 @@ public class Adstronomic {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                String appId = response.get("appId").toString();
+                                /*String appId = response.get("appId").toString();
                                 String storeURL = response.get("storeURL").toString();
                                 String id = response.get("id").toString();
                                 String fileURL = response.get("fileURL").toString();
 
-                                GenerateJson.generateInterstitialJson(appId, storeURL, id, fileURL);
+                                GenerateJson.generateInterstitialJson(appId, storeURL, id, fileURL);*/
 
-                                myVideoView.setVideoPath(Adstronomic.parseURL(fileURL));
+                                myVideoView.setVideoPath(Adstronomic.parseURL(response.get("url").toString()));
                                 myVideoView.setOnPreparedListener(
                                         new MediaPlayer.OnPreparedListener() {
                                             @Override

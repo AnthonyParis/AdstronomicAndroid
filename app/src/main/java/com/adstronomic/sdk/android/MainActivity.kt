@@ -1,11 +1,12 @@
 package com.adstronomic.sdk.android
 
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaPlayer.OnPreparedListener
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.VideoView
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bannerAdImage: ImageView
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Adstronomic.init(this, "01234567-89AB-CDEF-0123-456789ABCDEF")
+        Adstronomic.init(this, "wJMvF7kouz0lsO4m3d5a")
 
         bannerAdImage = findViewById(R.id.bannerAdImage)
         bannerAdButton = findViewById(R.id.bannerAdButton)
@@ -39,11 +40,11 @@ class MainActivity : AppCompatActivity() {
             Adstronomic.loadInterstitialIntoVideoView(this, interstitialAdVideo)
         }
 
-        rewardedAdVideo = findViewById(R.id.interstitialAdVideo)
-        rewardedAdButton = findViewById(R.id.interstitialAdButton)
+        rewardedAdVideo = findViewById(R.id.rewardedAdVideo)
+        rewardedAdButton = findViewById(R.id.rewardedAdButton)
 
         rewardedAdButton.setOnClickListener {
-            rewardedAdButton.visibility = View.VISIBLE
+            rewardedAdVideo.visibility = View.VISIBLE
 
             Adstronomic.loadRewardedIntoVideoView(this, rewardedAdVideo)
         }

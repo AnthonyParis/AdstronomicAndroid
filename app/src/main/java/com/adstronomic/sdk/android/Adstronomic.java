@@ -1,9 +1,11 @@
 package com.adstronomic.sdk.android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.VideoView;
@@ -201,6 +203,104 @@ public class Adstronomic {
         }
     }
 
+    public static class CustomTouchRedirect implements View.OnTouchListener {
+        private String advertiser;
+        private String redirection;
+        private Context context;
+        private String type;
+
+        CustomTouchRedirect(String advertiser, String redirection, String type, Context context) {
+            this.advertiser = advertiser;
+            this.redirection = redirection;
+            this.type = type;
+            this.context = context;
+            System.out.print("Init");
+        }
+
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                String url = Adstronomic.API_URL + "click";
+
+                url += "?clicked=true";
+                url += "&type=" + this.type;
+                url += "&publisherCampaignId=" + Adstronomic.campaignId;
+                url += "&advertiserCampaignId=" + this.advertiser;
+
+                System.out.println(url);
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(redirection));
+                                context.startActivity(browserIntent);
+
+                                System.out.println(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                System.out.println("loadBanner" + error.toString());
+                            }
+                        }
+                );
+
+                queueVolley.add(jsonObjectRequest);
+            }
+
+            return true;
+        }
+    }
+
+    public static class CustomRedirect implements View.OnClickListener {
+        private String advertiser;
+        private String redirection;
+        private Context context;
+        private String type;
+
+        CustomRedirect(String advertiser, String redirection, String type, Context context) {
+            this.advertiser = advertiser;
+            this.redirection = redirection;
+            this.type = type;
+            this.context = context;
+            System.out.print("Init");
+        }
+
+        @Override
+        public void onClick(View myView) {
+            String url = Adstronomic.API_URL + "click";
+
+            url += "?clicked=true";
+            url += "&type=" + this.type;
+            url += "&publisherCampaignId=" + Adstronomic.campaignId;
+            url += "&advertiserCampaignId=" + this.advertiser;
+
+            System.out.println(url);
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(redirection));
+                            context.startActivity(browserIntent);
+
+                            System.out.println(response);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("loadBanner" + error.toString());
+                        }
+                    }
+            );
+
+            queueVolley.add(jsonObjectRequest);
+        }
+    }
+
     public static void loadBannerIntoImageView(Context context, ImageView myImageView) {
         if(Adstronomic.campaignId != "") {
             String url = Adstronomic.API_URL + "getBanner";
@@ -219,7 +319,11 @@ public class Adstronomic {
 
                                 GenerateJson.generateBannerJson(appId, storeURL, id, fileURL);*/
 
+                                String advertiser = response.get("advertiserCampaignId").toString();
+                                String redirection = response.get("redirection").toString();
                                 Picasso.get().load(Adstronomic.parseURL(response.get("url").toString())).into(myImageView);
+                                CustomRedirect myRedirect = new CustomRedirect(advertiser, redirection, "banner", context);
+                                myImageView.setOnClickListener(myRedirect);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -237,7 +341,7 @@ public class Adstronomic {
     }
 
     public static void loadRewarded(Context context) {
-        if(Adstronomic.campaignId != "") {
+        if (Adstronomic.campaignId != "") {
             String url = Adstronomic.API_URL + "getRewarded";
 
             url += "?campaignId=" + Adstronomic.campaignId;
@@ -275,7 +379,6 @@ public class Adstronomic {
 
             url += "?campaignId=" + Adstronomic.campaignId;
 
-            System.out.println("Fetch");
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -287,16 +390,19 @@ public class Adstronomic {
                                 String fileURL = response.get("fileURL").toString();
 
                                 GenerateJson.generateRewardedJson(appId, storeURL, id, fileURL);*/
+                                String advertiser = response.get("advertiserCampaignId").toString();
+                                String redirection = response.get("redirection").toString();
                                 myVideoView.setVideoPath(Adstronomic.parseURL(response.get("url").toString()));
                                 myVideoView.setOnPreparedListener(
                                     new MediaPlayer.OnPreparedListener() {
                                         @Override
                                         public void onPrepared(MediaPlayer myMediaPlayer) {
                                             myVideoView.start();
-                                            System.out.println("Start");
                                         }
                                     }
                                 );
+                                CustomTouchRedirect myRedirect = new CustomTouchRedirect(advertiser, redirection, "rewarded", context);
+                                myVideoView.setOnTouchListener(myRedirect);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -365,6 +471,8 @@ public class Adstronomic {
 
                                 GenerateJson.generateInterstitialJson(appId, storeURL, id, fileURL);*/
 
+                                String advertiser = response.get("advertiserCampaignId").toString();
+                                String redirection = response.get("redirection").toString();
                                 myVideoView.setVideoPath(Adstronomic.parseURL(response.get("url").toString()));
                                 myVideoView.setOnPreparedListener(
                                         new MediaPlayer.OnPreparedListener() {
@@ -374,6 +482,8 @@ public class Adstronomic {
                                             }
                                         }
                                 );
+                                CustomTouchRedirect myRedirect = new CustomTouchRedirect(advertiser, redirection, "interstitial", context);
+                                myVideoView.setOnTouchListener(myRedirect);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
